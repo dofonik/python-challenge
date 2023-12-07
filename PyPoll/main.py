@@ -10,7 +10,7 @@ polloutput = os.path.join('analysis', 'poll_output.txt')
 
 #Set lists and variables to analyse data
 totalvotes = 0
-candidates = []
+candidates = [] #List to contain all candidates which are also the keys for dictionary below
 candidatevotes = {} #Dictionary to track votes per candidate (candidates are the keys)
 winner = ""
 winnervotes = 0
@@ -20,6 +20,9 @@ with open(polldata, 'r') as csvfile:
 
     #Using dictreader for superior code readability
     csvreader = csv.DictReader(csvfile, delimiter=',')
+    #Store the headers for the csv
+    header = csvreader.fieldnames
+    #print(header)
 
     #Read all rows in the CSV file to gather desired data
     for row in csvreader:
@@ -32,7 +35,8 @@ with open(polldata, 'r') as csvfile:
 
         #If the candidate of this row is a new candidate observed (does does not match an existing candidate)
         if currentcandidate not in candidates:
-
+            
+            #print("New Candidate Registered")
             #Add this new candidate to the list of total candidates
             candidates.append(currentcandidate)
 
@@ -65,14 +69,18 @@ with open(polloutput, 'w') as outputfile:
 
         #Extract votes for current candidate in dictionary
         votes = candidatevotes.get(candidate)
+        #print(votes)
+
         #Calculate percentage of votes for this candidate
         voteperc = round((float(votes)/float(totalvotes)) * 100, 3)
+        #print(voteperc)
 
         #Check if current candidate has most votes so far (winnervotes inititalised as 0)
         if votes > winnervotes:
             #If so, set new winner stats
             winnervotes = votes
             winner = candidate
+            #print(winner)
 
         #Print data for this candidate and write to file
         print(candidate + ": " + str(voteperc) + "% (" + str(votes) + ")")
@@ -82,7 +90,7 @@ with open(polloutput, 'w') as outputfile:
     print("--------------------------")
     print("Winner: " + winner)
     print("--------------------------")
-    outputfile.write("--------------------------")
-    outputfile.write("Winner: " + winner)
-    outputfile.write("--------------------------")
+    outputfile.write("--------------------------\n")
+    outputfile.write("Winner: " + winner + "\n")
+    outputfile.write("--------------------------\n")
     

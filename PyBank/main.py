@@ -12,8 +12,8 @@ currentpl = 0
 prevpl = 0
 netpl = 0
 plchange = 0
-plchangelist = []
-months = []
+plchangelist = [] #List to contain month to month changes in profit/loss
+months = [] #List to contain the month title for all rows
 
 with open(budgetdata, 'r') as csvfile:
 
@@ -71,8 +71,8 @@ print("--------------------------")
 print("Total Months: " + str(num_months))
 print("Total: $" + str(netpl))
 print("Average Change: $" + str(plaverage))
-print("Greatest Increase in Profits: " + highestplmonth + " $" + str(highestpl))
-print("Greatest Decrease in Profits: " + lowestplmonth + " $" + str(lowestpl))
+print("Greatest Increase in Profits: " + highestplmonth + " ($" + str(highestpl) + ")")
+print("Greatest Decrease in Profits: " + lowestplmonth + " ($" + str(lowestpl) + ")")
 
 #Opening output file to write results to
 with open(budgetoutput, 'w') as outputfile:
@@ -83,5 +83,5 @@ with open(budgetoutput, 'w') as outputfile:
     outputfile.write("Total Months: " + str(num_months) + "\n")
     outputfile.write("Total: $" + str(netpl) + "\n")
     outputfile.write("Average Change: $" + str(plaverage) + "\n")
-    outputfile.write("Greatest Increase in Profits: " + highestplmonth + " $" + str(highestpl) + "\n")
-    outputfile.write("Greatest Decrease in Profits: " + lowestplmonth + " $" + str(lowestpl) + "\n")
+    outputfile.write("Greatest Increase in Profits: " + highestplmonth + " ($" + str(highestpl) + ")\n")
+    outputfile.write("Greatest Decrease in Profits: " + lowestplmonth + " ($" + str(lowestpl) + ")\n")
